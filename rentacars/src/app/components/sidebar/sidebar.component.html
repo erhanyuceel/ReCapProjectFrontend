@@ -1,0 +1,17 @@
+<ul class="list-group">
+    <li (click)="clearCurrent()" routerLink = "/cars" [class]="getAllClass()">Tüm Markalar</li>
+</ul>
+
+<ul class="list-group mt-4">
+    <li (click)="setCurrent(brand)" 
+    *ngFor="let brand of brands" 
+    routerLink="/cars/brand/{{brand.brandId}}"
+    [class]="getCurrentClass(brand)" >{{ brand.brandName }}</li>  
+</ul>
+
+<ul class="list-group mt-4">
+    <li (click)="setCurrent(color)" 
+    *ngFor="let color of colors" 
+    routerLink="/cars/color/{{color.colorId}}"
+    [class]="getCurrentClass(color)" >{{ color.colorName }}</li>  
+</ul>

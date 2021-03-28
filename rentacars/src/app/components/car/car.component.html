@@ -1,26 +1,30 @@
 <div *ngIf="dataLoaded == false" class="spinner-border text-info" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
-  <table *ngIf = "dataLoaded==true" class="table">
-    <thead>
-        <tr>
-            <th>Car Id</th>
-            <th>Car</th>
-            <th>Brand Name</th>
-            <th>Color Name</th>
-            <th>Model Year</th>
-            <th>Daily Price</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tr *ngFor="let car of cars">
-      <td>{{car.id}}</td>
-      <td>{{car.carName}}</td>
-      <td>{{car.brandName}}</td>
-      <td>{{car.colorName}}</td>
-      <td>{{car.modelYear}}</td>
-      <td>{{car.dailyPrice}}</td>
-      <td>{{car.descriptions}}</td>
-        
-    </tr>
-  </table>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div *ngFor="let car of cars" class="col">
+        <div class="card shadow-sm">
+          <!-- <img class="bd-placeholder-img card-img-top"
+          width="100%"
+          height="225" src="{{ apiURL }}{{ carImage }}" alt="{{car.descriptions}}"> -->
+          <div class="card-body">
+            <p class="card-text">
+                {{car.descriptions}}
+            </p>
+            <p class="card-text">
+                <small class="text-muted">Günlük Ücret: {{car.dailyPrice}}</small><br>
+                <small class="text-muted">Renk: {{car.colorName}}</small><br>
+                <small class="text-muted">Marka: {{car.brandName}}</small>
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button routerLink="/cars/{{ car.id }}" type="button" class="btn btn-sm btn-outline-secondary">
+                  DETAY
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

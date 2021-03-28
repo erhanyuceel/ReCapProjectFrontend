@@ -1,17 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CarResponseModel } from '../models/carResponseModel';
+import { ListResponseModel } from '../models/listResponseModel';
+import { SingleResponseModel } from '../models/singleResponseModel';
 import { Observable } from 'rxjs';
+import { Car } from '../models/car';
+import { CarDetail } from '../models/carDetail';
+import { CarImageDetail } from '../models/carImageDetail';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarService {
-  apiUrl = "https://localhost:44365/api/cars/getcarsdetails"
+  apiUrl = "https://localhost:44365/api/"
 
   constructor(private httpClient:HttpClient) { }
 
-  getCars():Observable<CarResponseModel> {
-    return this.httpClient.get<CarResponseModel>(this.apiUrl);
+  getCars():Observable<ListResponseModel<Car>> {
+    let newPath = this.apiUrl + "cars/getcarsdetails"
+    return this.httpClient.get<ListResponseModel<Car>>(newPath);
+  }
+  getCarsByBrand(brandId:number):Observable<ListResponseModel<Car>> {
+    let newPath = this.apiUrl + "cars/getcarsbybrandid?id=" + brandId
+    return this.httpClient.get<ListResponseModel<Car>>(newPath);
+  }
+  getCarsByColor(colorId:number):Observable<ListResponseModel<Car>> {
+    let newPath = this.apiUrl + "cars/getcarsbycolorid?id=" + colorId
+    return this.httpClient.get<ListResponseModel<Car>>(newPath);
+  }
+  getCarDetails(carId:number):Observable<SingleResponseModel<CarDetail>>{
+    let newPath = this.apiUrl + "cars/getcardetailsbyid?id="+ carId;
+    return this.httpClient.get<SingleResponseModel<CarDetail>>(newPath);
+  }
+  getCarImagesById(carId:number):Observable<ListResponseModel<CarImageDetail>>{
+    let carImagesPath = this.apiUrl + "carimages/getimagesbycarid?id=" + carId;
+    return this.httpClient.get<ListResponseModel<CarImageDetail>>(carImagesPath);
+  }
+  
+  getCarImages(carId:number):Observable<SingleResponseModel<CarImageDetail>>{
+    let carImagesPath = this.apiUrl + "carimages/getimagesbycarid?id=" + carId;
+    return this.httpClient.get<SingleResponseModel<CarImageDetail>>(carImagesPath);
   }
 }
