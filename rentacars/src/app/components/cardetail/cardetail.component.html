@@ -1,5 +1,6 @@
 <div *ngIf="carDetail" class="container">
-    <h1>{{carDetail.descriptions}}</h1>
+    <h1>{{carDetail.carName}}</h1>
+     <p>{{carDetail.brandName}} - {{carDetail.descriptions}}</p>
 
     <div class="carousel-inner">
       <div
@@ -13,7 +14,8 @@
         />
       </div>
   </div>
-    <h2 class="mt-4">Color: {{carDetail.colorName}}</h2>
-    <h3>Daily Price: {{carDetail.dailyPrice}} ₺</h3>
+    <p class="mt-4">Renk: {{carDetail.colorName}}</p>
+    <p>Model Yılı: {{carDetail.modelYear | date:'yyyy'}}</p>
+    <p>Günlük Fiyatı: {{carDetail.dailyPrice | vatAdded:18 }} ₺</p>
 </div>
 

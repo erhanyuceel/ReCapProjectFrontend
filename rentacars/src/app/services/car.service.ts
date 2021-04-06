@@ -6,12 +6,13 @@ import { Observable } from 'rxjs';
 import { Car } from '../models/car';
 import { CarDetail } from '../models/carDetail';
 import { CarImageDetail } from '../models/carImageDetail';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarService {
-  apiUrl = "https://localhost:44365/api/"
+  apiUrl: string = `${environment.apiUrl}/`;
 
   constructor(private httpClient:HttpClient) { }
 

@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Observable } from 'rxjs';
 import { Rental } from '../models/rental';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentalService {
-  apiUrl = "https://localhost:44365/api/rentals/getrentdetails"
+  apiUrl: string = `${environment.apiUrl}/rentals/getrentdetails`;
 
   constructor(private httpClient:HttpClient) { }
 

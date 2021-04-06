@@ -14,6 +14,8 @@ export class SidebarComponent implements OnInit {
   brands:Brand[]=[];
   dataLoaded=false;
   currentValue : Color | Brand | null;
+  filterBrandText = "";
+  filterColorText = "";
   
   constructor(
     private brandService:BrandService,

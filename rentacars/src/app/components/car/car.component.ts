@@ -19,6 +19,7 @@ apiURL = 'https://localhost:44365/';
   carDetails:CarDetail[];
   carImage:CarImageDetail;
   dataLoaded = false;
+  filterCarText = "";
   
   constructor(
     private carService : CarService,

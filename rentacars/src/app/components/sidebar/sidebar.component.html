@@ -3,15 +3,17 @@
 </ul>
 
 <ul class="list-group mt-4">
+    <li class="list-group-item"><input type="text" [(ngModel)]="filterBrandText" class="form-control" id="filterBrandText" placeholder="Aramak istenen marka"></li>
     <li (click)="setCurrent(brand)" 
-    *ngFor="let brand of brands" 
+    *ngFor="let brand of brands | filterBrand:filterBrandText" 
     routerLink="/cars/brand/{{brand.brandId}}"
     [class]="getCurrentClass(brand)" >{{ brand.brandName }}</li>  
 </ul>
 
 <ul class="list-group mt-4">
+    <li class="list-group-item"><input type="text" [(ngModel)]="filterColorText" class="form-control" id="filterColorText" placeholder="Aramak istenen renk"></li>
     <li (click)="setCurrent(color)" 
-    *ngFor="let color of colors" 
+    *ngFor="let color of colors | filterColor:filterColorText" 
     routerLink="/cars/color/{{color.colorId}}"
     [class]="getCurrentClass(color)" >{{ color.colorName }}</li>  
 </ul>
