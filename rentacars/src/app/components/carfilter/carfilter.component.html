@@ -1,18 +1,19 @@
 
 
-<div class="mb-2">
-    <div class="border border-light p-2  w-50">
+  <div class="row">
+    <div class="col-sm-5">
       <select class="form-select " [(ngModel)]="selectedColor" (ngModelChange)='onColorSelected($event)' aria-label=".form-select-sm example">
-        <option disabled value="0">Colors</option>
+        <option disabled value="0">Renk Seçiniz</option>
         <option *ngFor="let color of colors" [value]="color.colorId">{{color.colorName}}</option>
       </select>
     </div>
-    <div class="border border-light p-2  w-50">
+    <div class="col-sm-5">
       <select class="form-select" [(ngModel)]="selectedBrand" (ngModelChange)='onBrandSelected($event)' aria-label=".form-select-sm example">
-        <option disabled value="0">Brands</option>
+        <option disabled value="0">Marka Seçiniz</option>
         <option *ngFor="let brand of brands" [value]="brand.brandId">{{brand.brandName}}</option>
       </select>
     </div>
-    <button class="btn btn-primary" (click)="filterCars()" >Filtrele</button>
-  
+    <div class="col-sm">
+      <button class="btn btn-primary w-100" (click)="filterCars()" >BUL</button>
+    </div>
   </div>

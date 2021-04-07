@@ -8,13 +8,9 @@
       {{filterCarText}} aradınız
   </div>
   <div class="mb-3"><app-carfilter></app-carfilter></div>
-
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-    <div *ngFor="let car of cars | filterCar:filterCarText" class="col mb-4">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" *ngIf="cars.length>0; else elseBlock">
+    <div *ngFor="let car of cars | filterCar:filterCarText" class="col">
         <div class="card shadow-sm">
-          <!-- <img class="bd-placeholder-img card-img-top"
-          width="100%"
-          height="225" src="{{ apiURL }}{{ carImage }}" alt="{{car.descriptions}}"> -->
           <div class="card-body">
             <p class="card-text">
                 <b>{{car.carName}}</b><br>
@@ -23,7 +19,7 @@
             <p class="card-text">
                 <small class="text-muted">Günlük Ücret: {{car.dailyPrice | vatAdded:18}}</small><br>
                 <small class="text-muted">Renk: {{car.colorName}}</small><br>
-                <small class="text-muted">Marka: {{car.brandName}}</small>
+                <small class="text-muted">Marka: {{car.brandName}}</small><br>
                 <small class="text-muted">Model Yılı: {{car.modelYear | date:'yyyy'}}</small>
             </p>
             <div class="d-flex justify-content-between align-items-center">
@@ -35,5 +31,10 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
 </div>
+<ng-template #elseBlock>
+  <div class="alert alert-danger" role="alert">
+    Aradığınız kriterlerde araç bulunmamaktadır.
+  </div>
+</ng-template>

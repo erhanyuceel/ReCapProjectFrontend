@@ -47,7 +47,6 @@ export class CarfilterComponent implements OnInit {
     }
     if(this.selectedColor>0&& this.selectedBrand==0)
     {
-
       let link="/cars/color/"+this.selectedColor;
       window.location.href=link;
     }

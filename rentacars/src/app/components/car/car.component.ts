@@ -34,8 +34,12 @@ apiURL = 'https://localhost:44365/';
       else if(params["colorId"]){
         this.getCarsByColor(params["colorId"])
       }
+      else if(params["colorfilterId"] && params["brandfilterId"])
+      {
+       this.getCarsWithByColorIdAndBrandId(params["colorfilterId"],params["brandfilterId"]);
+      }
       else{
-        this.getCars()
+        this.getCars();
       }
     })
   }
@@ -61,6 +65,13 @@ apiURL = 'https://localhost:44365/';
       this.dataLoaded = true;
       this.setAllImageUrls(this.cars);
     })   
+  }
+  getCarsWithByColorIdAndBrandId(colorfilterId:number,brandfilterId:number){
+    this.carService.getCarsWithByColorIdAndBrandId(colorfilterId,brandfilterId).subscribe(response=>{
+      this.cars=response.data
+      this.dataLoaded = true;
+      this.setAllImageUrls(this.cars);
+    });
   }
 
   setCurretCar(car: Car){
