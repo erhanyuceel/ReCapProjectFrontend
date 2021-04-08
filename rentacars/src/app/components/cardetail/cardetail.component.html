@@ -17,18 +17,16 @@
     <p class="mt-4">Renk: {{carDetail.colorName}}</p>
     <p>Model Yılı: {{carDetail.modelYear | date:'yyyy'}}</p>
     <p>Günlük Fiyatı: {{carDetail.dailyPrice | vatAdded:18 }} ₺</p>
-</div>
-<hr>
-<div>
-  <div class="d-grid gap-2 mb-2">
-    <div  class="dd-grid gap-2 mb-2">
+
+    <hr>
+    <div *ngIf = "carDetail.available == true" class="dd-grid gap-2 mb-2">
       <div style="margin: auto;">
-        s
+        <app-rental-form [car] = "carDetail"></app-rental-form>
       </div>
     </div>
-  </div>
-  <div class="dd-grid gap-2 mb-2" >
-    <div class="alert alert-danger">Araç şu an kiralanamaz.</div>
-  </div>
-</div> 
-
+    <div class="dd-grid gap-2 mb-2" *ngIf = "carDetail.available == false">
+      <div class="alert alert-danger">Araç şu an kiralanamaz.</div>
+    </div>
+    
+    
+</div>
