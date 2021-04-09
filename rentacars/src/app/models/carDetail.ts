@@ -7,6 +7,6 @@ export interface CarDetail{
     colorId:number;
     modelYear:number;
     dailyPrice:number;
-    descriptions:string;
+    description:string;
     available?:boolean;
 }

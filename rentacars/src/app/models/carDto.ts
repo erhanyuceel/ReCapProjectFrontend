@@ -6,6 +6,6 @@ export interface CarDto {
     modelYear: number;
     dailyPrice: number;
     description: string;
-    imagePaths: string[];
+    //imagePaths: string[];
     available?:boolean;
   }
