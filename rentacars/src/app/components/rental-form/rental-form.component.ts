@@ -3,11 +3,12 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Car } from 'src/app/models/car';
+import { CarDto } from 'src/app/models/carDto';
 import { Customer } from 'src/app/models/customer';
 import { Rental } from 'src/app/models/rental';
 import { CustomerService } from 'src/app/services/customer.service';
 import { RentalService } from 'src/app/services/rental.service';
+import { FormGroup, FormBuilder, FormControl, Validators} from "@angular/forms"
 
 
 @Component({
@@ -26,7 +27,7 @@ export class RentalFormComponent implements OnInit {
 
   rentDate:Date;
   returnDate:Date;
-  @Input() car:Car;
+  @Input() car:CarDto;
 
   minDate :string|any; 
   maxDate: string|null;

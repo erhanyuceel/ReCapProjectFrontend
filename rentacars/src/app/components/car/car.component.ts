@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Car } from 'src/app/models/car';
+import { CarDto } from 'src/app/models/carDto';
 import { CarService } from 'src/app/services/car.service';
 import { CarDetail } from 'src/app/models/carDetail';
 import { CarImageDetail } from 'src/app/models/carImageDetail';
@@ -13,9 +13,9 @@ import { CarImageDetail } from 'src/app/models/carImageDetail';
 export class CarComponent implements OnInit {
 apiURL = 'https://localhost:44365/';
 
-  cars:Car[] = [];
-  currentCar:Car;
-  emptyCar:Car;
+  cars:CarDto[] = [];
+  currentCar:CarDto;
+  emptyCar:CarDto;
   carDetails:CarDetail[];
   carImage:CarImageDetail;
   dataLoaded = false;
@@ -74,7 +74,7 @@ apiURL = 'https://localhost:44365/';
     });
   }
 
-  setCurretCar(car: Car){
+  setCurretCar(car: CarDto){
     this.currentCar = car;
   }
 
@@ -84,7 +84,7 @@ apiURL = 'https://localhost:44365/';
     });
   }
 
-  setAllImageUrls(cars:Car[]){
+  setAllImageUrls(cars:CarDto[]){
     cars.forEach(c => {
       this.getCarImages(c.id);
     });

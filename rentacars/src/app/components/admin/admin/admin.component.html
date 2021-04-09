@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-6 col-xs-12">
+            <div class="table-responsive">
+            <table *ngIf="dataLoaded!=false" class="table table-striped table-sm">
+                <thead> 
+                    <tr>
+                        <th>Renk</th>
+                        <th><button type="button" class="btn btn-success btn-sm" routerLink = "/admin/colorAdd" >Yeni Renk Ekle</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let color of colors">
+                        <td>{{color.colorName}}</td>
+                        <td><button type="button" class="btn btn-warning btn-sm" routerLink = "/admin/colorUpdate/{{color.colorId}}">Güncelle</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <div class="table-responsive">
+            <table *ngIf="dataLoaded!=false" class="table table-striped table-sm">
+                <thead> 
+                    <tr>
+                        <th>Merkalar</th>
+                        <th><button type="button" class="btn btn-success btn-sm" routerLink = "/admin/brandAdd" >Yeni Marka Ekle</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let brand of brands">
+                        <td>{{brand.brandName}}</td>
+                        <td><button type="button" class="btn btn-warning btn-sm" routerLink = "/admin/brandUpdate/{{brand.brandId}}" >Güncelle</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-xs-12">
+            <div class="table-responsive">
+            <table *ngIf="dataLoaded!=false" class="table table-striped table-sm">
+                <thead> 
+                    <tr>
+                        <th>Arabalar</th>
+                        <th><button type="button" class="btn btn-success btn-sm" routerLink = "/admin/carAdd">Yeni Araç Ekle</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let car of cars">
+                        <td>{{car.carName}}</td>
+                        <td><button type="button" class="btn btn-warning btn-sm" routerLink = "/admin/carUpdate/{{car.id}}">Güncelle</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+  </div>
