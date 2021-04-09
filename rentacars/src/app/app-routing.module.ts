@@ -9,7 +9,9 @@ import { ColorAddComponent } from './components/admin/color-add/color-add.compon
 import { ColorUpdateComponent } from './components/admin/color-update/color-update.component';
 import { CarComponent } from './components/car/car.component';
 import { CardetailComponent } from './components/cardetail/cardetail.component';
+import { LoginComponent } from './components/login/login.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {path:"", pathMatch:"full", component:CarComponent},
@@ -19,13 +21,14 @@ const routes: Routes = [
   {path:"cars/color/:colorId", component:CarComponent},
   {path:"cars/filteredCars/color/:colorfilterId/brand/:brandfilterId",component:CarComponent},
   {path:"payment/:rental",component:PaymentComponent},
-  {path:"admin", component:AdminComponent},
-  {path:"admin/brandAdd", component:BrandAddComponent},
-  {path:"admin/brandUpdate/:brandId", component:BrandUpdateComponent},
-  {path:"admin/colorAdd", component:ColorAddComponent},
-  {path:"admin/colorUpdate/:colorId", component:ColorUpdateComponent},
-  {path:"admin/carAdd", component:CarAddComponent},
-  {path:"admin/carUpdate/:carId", component:CarUpdateComponent}
+  {path:"admin", component:AdminComponent, canActivate:[LoginGuard]},
+  {path:"admin/brandAdd", component:BrandAddComponent, canActivate:[LoginGuard]},
+  {path:"admin/brandUpdate/:brandId", component:BrandUpdateComponent, canActivate:[LoginGuard]},
+  {path:"admin/colorAdd", component:ColorAddComponent, canActivate:[LoginGuard]},
+  {path:"admin/colorUpdate/:colorId", component:ColorUpdateComponent, canActivate:[LoginGuard]},
+  {path:"admin/carAdd", component:CarAddComponent, canActivate:[LoginGuard]},
+  {path:"admin/carUpdate/:carId", component:CarUpdateComponent, canActivate:[LoginGuard]},
+  {path:"login", component:LoginComponent}
 ];
 
 @NgModule({
