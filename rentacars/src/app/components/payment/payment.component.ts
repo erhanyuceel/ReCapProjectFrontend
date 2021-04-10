@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators} from "@angular/forms"
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
@@ -10,6 +11,9 @@ import { PaymentService } from 'src/app/services/payment.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { RentalService } from 'src/app/services/rental.service';
 import { error } from '@angular/compiler/src/util';
+import { AuthService } from 'src/app/services/auth.service';
+import { CardService } from 'src/app/services/card.service';
+import { Card } from 'src/app/models/card';
 
 @Component({
   selector: 'app-payment',
@@ -18,6 +22,7 @@ import { error } from '@angular/compiler/src/util';
 })
 export class PaymentComponent implements OnInit {
 
+  card:Card;
   rental: Rental;
   car: Car;
   customer: Customer;
@@ -33,13 +38,18 @@ export class PaymentComponent implements OnInit {
   isPaymentReceived: boolean =false;
   isCarRent: boolean =false;
 
+  isChecked =false;
+
 
   constructor(
+    private formBuilder:FormBuilder, 
     private activatedRoute: ActivatedRoute,
     private paymentService: PaymentService,
     private router: Router,
     private toastrService: ToastrService,
-    private rentalService: RentalService
+    private rentalService: RentalService,
+    private authService:AuthService,
+    private cardService:CardService,
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +80,7 @@ export class PaymentComponent implements OnInit {
       cvc: this.cvc,
     };
     this.rentCar();
+    this.CardSave(this.card);
   }
 
   rentCar() {
@@ -84,9 +95,16 @@ export class PaymentComponent implements OnInit {
         //console.log(error);
       });
   }
+  CardSave(card:Card){
+    if (this.isChecked == true) {
+      let cardModel = Object.assign({userId:this.getCustomerId},this.card)
+      this.cardService.saveCard(cardModel).subscribe(response => {
+        this.toastrService.success(response.message,"Kart Ekleme Başarılı")
+      });
+    }
+  }
 
   addRental() {
-    console.log(this.rental);
     this.rentalService.addRental(this.rental).subscribe((response) => {
      this.isCarRent === response.success;
      this.toastrService.success('Kiralama islemi Yapildi! ');
