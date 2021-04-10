@@ -9,6 +9,7 @@ import { Rental } from 'src/app/models/rental';
 import { CustomerService } from 'src/app/services/customer.service';
 import { RentalService } from 'src/app/services/rental.service';
 import { FormGroup, FormBuilder, FormControl, Validators} from "@angular/forms"
+import { FindexService } from 'src/app/services/findex.service';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class RentalFormComponent implements OnInit {
     private activatedRoute:ActivatedRoute,
     private rentalService:RentalService,
     private customerService:CustomerService,
+    private findexService: FindexService,
     private datePipe:DatePipe
   ) { }
 
@@ -113,8 +115,16 @@ export class RentalFormComponent implements OnInit {
       this.toastrService.error("secili tarihler arasi kiralanmis","Arac Musait Degil ")
     }
     else{
-      this.router.navigate(['/payment/', JSON.stringify(MyRental)]);
-      this.toastrService.info('Ödeme sayfasına yönlendiriliyorsunuz...','Ödeme İşlemleri');
+      // findex puanlarını al
+      let customerPoint = this.findexService.getPointByCustomerId(MyRental.customerId)
+      let carPoint = this.findexService.getPointByCarId(MyRental.carId)
+
+      if(customerPoint >= carPoint){
+        this.router.navigate(['/payment/', JSON.stringify(MyRental)]);
+        this.toastrService.info('Ödeme sayfasına yönlendiriliyorsunuz...','Ödeme İşlemleri');
+      } else {
+        this.toastrService.error('Findex puanınız yetersiz', 'Hata')
+      }
     }
   }
 
