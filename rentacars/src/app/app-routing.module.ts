@@ -9,8 +9,11 @@ import { ColorAddComponent } from './components/admin/color-add/color-add.compon
 import { ColorUpdateComponent } from './components/admin/color-update/color-update.component';
 import { CarComponent } from './components/car/car.component';
 import { CardetailComponent } from './components/cardetail/cardetail.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { LoginComponent } from './components/login/login.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { RegisterComponent } from './components/register/register.component';
+import { UserCardsComponent } from './components/user-cards/user-cards.component';
 import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
@@ -28,7 +31,10 @@ const routes: Routes = [
   {path:"admin/colorUpdate/:colorId", component:ColorUpdateComponent, canActivate:[LoginGuard]},
   {path:"admin/carAdd", component:CarAddComponent, canActivate:[LoginGuard]},
   {path:"admin/carUpdate/:carId", component:CarUpdateComponent, canActivate:[LoginGuard]},
-  {path:"login", component:LoginComponent}
+  {path:"login", component:LoginComponent},
+  {path:"register",component:RegisterComponent},
+  {path:"cards",component:UserCardsComponent,canActivate:[LoginGuard]},
+  {path:"changePassword",component:ChangePasswordComponent,canActivate:[LoginGuard]},
 ];
 
 @NgModule({

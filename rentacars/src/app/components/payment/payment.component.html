@@ -1,61 +1,82 @@
-<div class="card-body">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="panel panel-default">
 
-        <div class="panel-body">
-          <div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="cc-name">Name on card</label>
-                <input [(ngModel)]="fullName" type="text" class="form-control" id="cc-name" placeholder="" required />
-                <small class="text-muted">Full name as displayed on card</small>
-                <div class="invalid-feedback">Name on card is required</div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="cc-number">Credit card number</label>
-                <input [(ngModel)]="cardNumber" title="Must contain at least 8 or more characters" type="text"
-                  class="form-control" id="cc-number" />
-                <div class="invalid-feedback">
-                  Credit card number is required
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="cc-expiration-year">Expiration Year</label>
-                <input [(ngModel)]="expirationYear" type="number" class="form-control" id="cc-expiration-year"
-                  placeholder="YY" required />
-                <div class="invalid-feedback">Expiration date required</div>
-                <label for="cc-expiration-month">Expiration Month</label>
-                <input [(ngModel)]="expirationMonth" type="number" class="form-control" id="cc-expiration-month"
-                  placeholder="MM" required />
-                <div class="invalid-feedback">Expiration date required</div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="cc-cvc">CVC</label>
-                <input [(ngModel)]="cvc" type="number" class="form-control" id="cc-cvc" placeholder="cvc" required />
-                <div class="invalid-feedback">Security code required</div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <div class="check">
-                  <div class="form-check form-switch">
-                    <input [(ngModel)]="isChecked" class="form-check-input" type="checkbox" id="isChecked" checked>
-                    <label class="form-check-label" for="isChecked">Kartınızı kaydetmek ister misiniz?</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+<div>
+  <h2>My Cards</h2>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Card Id</th>
+          <th scope="col">Card Number</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Expiration Date</th>
+          <th scope="col">CVV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let card of cards">
+          <th scope="row">{{card.cardId}}</th>
+          <td>{{card.cardNumber}}</td>
+          <td>{{card.firstName}}</td>
+          <td>{{card.lastName}}</td>
+          <td>{{card.expirationDate}}</td>
+          <td>{{card.cvv}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<br>
+<hr>
+<br>
+<form [formGroup]="rentalAddForm">
+  <div class="mb-3 row">
+      <div class="col-md-4">
+          <label for="cardNumber" class="form-label">Card Number :</label>
       </div>
-    </div>
+      <div class="col-md-8">
+          <input formControlName="cardNumber" type="text" class="form-control" id="cardNumber" placeholder="örn: 8109771495247556">
+      </div>
   </div>
-  <div class="card-footer">
-    <div class="row">
-      <button (click)="payResult()" class="btn btn-warning">
-        {{ rental.totalPrice }} Ödeme Yap
-      </button>
+  <div class="mb-3 row">
+      <div class="col-md-4">
+          <label for="firstName" class="form-label">First Name : </label>
+      </div>
+      <div class="col-md-8">
+          <input formControlName="firstName" type="text" class="form-control" id="firstName" placeholder="örn: Mehmet">
+      </div>
+  </div>
+  <div class="mb-3 row">
+      <div class="col-md-4">
+          <label for="lastName" class="form-label">Last Name : </label>
+      </div>
+      <div class="col-md-8">
+          <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder="örn: Yıldız">
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+          <div class="mb-3">
+              <label for="cvv" class="form-label">CVV : </label>
+              <input formControlName="cVV" type="number" class="form-control" id="cvv" placeholder="örn: 123">
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="mb-3">
+              <label for="expirationDate" class="form-label">Expiration Date : </label>
+              <input formControlName="expirationDate" type="text" class="form-control" id="expirationDate" placeholder="örn: 20/27">
+          </div>   
+      </div>
+  </div>
+</form>
+<div class="check">
+  <div class="form-check form-switch">
+      <input [(ngModel)]="isChecked" class="form-check-input" type="checkbox" id="isChecked" checked>
+      <label class="form-check-label" for="isChecked">Kartınızı kaydetmek ister misiniz?</label>
     </div>
+</div>
+<div class="card-footer">
+  <div class="row">
+    <button (click)="payResult()" class="btn btn-warning">
+      {{ rental.totalPrice }} Ödeme Yap
+    </button>
   </div>
 </div>

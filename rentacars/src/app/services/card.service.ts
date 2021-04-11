@@ -10,24 +10,24 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CardService {
+  apiUrl: string = `${environment.apiUrl}/`;
 
   constructor(
     private httpClient:HttpClient
   ) { }
 
   saveCard(card:Card):Observable<ResponseModel>{
-    // let newPath = this.apiUrl + "cards/addcard";
-    // return this.httpClient.post<ResponseModel>(newPath,card);
-    return this.httpClient.post<ResponseModel>(environment.apiUrl+"cards/addcard", card)
+    let newPath = this.apiUrl + "cards/addcard"
+    return this.httpClient.post<ResponseModel>(newPath, card)
   }
 
   getCardsByUserId(userId:number):Observable<ListResponseModel<Card>>{
-    let newPath = environment.apiUrl + "cards/getcardsbyuserid?userId=" + userId;
+    let newPath = this.apiUrl + "cards/getcardsbyuserid?userId=" + userId;
     return this.httpClient.get<ListResponseModel<Card>>(newPath);
   }
 
   deleteCard(cardModel:Card):Observable<ResponseModel>{
-    let newPath = environment.apiUrl + "carddetails/delete";
+    let newPath = this.apiUrl + "carddetails/delete";
     return this.httpClient.post<ResponseModel>(newPath,cardModel);
   }
 }

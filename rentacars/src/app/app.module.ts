@@ -31,6 +31,9 @@ import { FilterCarPipe } from './pipes/filter-car.pipe';
 import { ToastrModule } from "ngx-toastr";
 import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { RegisterComponent } from './components/register/register.component';
+import { UserCardsComponent } from './components/user-cards/user-cards.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ColorUpdateComponent,
     CarUpdateComponent,
     LoginComponent,
+    RegisterComponent,
+    UserCardsComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

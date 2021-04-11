@@ -22,7 +22,7 @@ import { Card } from 'src/app/models/card';
 })
 export class PaymentComponent implements OnInit {
 
-  card:Card;
+  cards:Card[];
   rental: Rental;
   car: Car;
   customer: Customer;
@@ -39,6 +39,8 @@ export class PaymentComponent implements OnInit {
   isCarRent: boolean =false;
 
   isChecked =false;
+
+  rentalAddForm:FormGroup
 
 
   constructor(
@@ -58,46 +60,57 @@ export class PaymentComponent implements OnInit {
         this.rental = JSON.parse(params['rental']);
         this.getCustomerId = JSON.parse(params['rental']).customerId;
         this.amountOfPayment = JSON.parse(params['rental']).totalPrice;
+        this.createRentalAddForm();
+        this.getCardsByUserId()
       }
     });
   }
 
+  createRentalAddForm(){
+    this.rentalAddForm = this.formBuilder.group({
+      cardNumber:["",Validators.required],
+      expirationDate:["",Validators.required],
+      cVV:["",Validators.required],
+      firstName:["",Validators.required],
+      lastName:["",Validators.required]
+    })
+  }
+  
+
   async payResult() {
-    await this.payWithCard();
-      await this.toastrService.warning("Anasayfaya Yonlendiriliyorsunuz")
-       await setTimeout(() => {
-        this.router.navigate(['/cars']);
-    }, 1000);
+    if (this.rentalAddForm.valid) {
+      await this.payWithCard();
+        await this.toastrService.warning("Anasayfaya Yonlendiriliyorsunuz")
+        await setTimeout(() => {
+          this.router.navigate(['/cars']);
+      }, 1000);
+    }else{
+      this.toastrService.error("Please Fill The Form Completely.","Error")
+    }
     
     
   }
-   payWithCard(){
-    let card: CreditCard = {
-      fullName: this.fullName,
-      cardNumber: this.cardNumber,
-      expireYear: this.expirationYear,
-      expireMonth: this.expirationMonth,
-      cvc: this.cvc,
-    };
+  payWithCard(){
     this.rentCar();
-    this.CardSave(this.card);
+    this.CardSave();
   }
 
   rentCar() {
-    this.paymentService.payWithCreditCard().subscribe((response) => {
+        this.paymentService.payWithCreditCard().subscribe((response) => {
         this.isPaymentReceived == response.success;
         this.toastrService.success(this.amountOfPayment + 'Tl  ' + this.rental.brandName, 'Odemeniz Alindi' );
-        //console.log(response);
+        console.log(response);
         this.addRental();
       },(error)=>{
         this.isPaymentReceived == false;
         this.toastrService.error('hata');
         //console.log(error);
       });
+    
   }
-  CardSave(card:Card){
+  CardSave(){
     if (this.isChecked == true) {
-      let cardModel = Object.assign({userId:this.getCustomerId},this.card)
+      let cardModel = Object.assign({userId:this.getCustomerId},this.rentalAddForm.value)
       this.cardService.saveCard(cardModel).subscribe(response => {
         this.toastrService.success(response.message,"Kart Ekleme Başarılı")
       });
@@ -115,6 +128,12 @@ export class PaymentComponent implements OnInit {
        this.toastrService.error('Kiralama isleminde hata ile karsilasildi lutfen iletisime gecin.');
        console.log(error);
      })
+  }
+
+  getCardsByUserId(){
+    this.cardService.getCardsByUserId(this.getCustomerId).subscribe(response => {
+      this.cards = response.data;
+    })
   }
 
 }
